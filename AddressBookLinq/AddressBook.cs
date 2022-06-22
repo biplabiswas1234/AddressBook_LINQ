@@ -10,9 +10,8 @@ namespace AddressBookLinq
     
     public class AddressBook
     {
-        
-        DataTable dataTable = new DataTable();
 
+        DataTable dataTable = new DataTable();
         public AddressBook()
         {
             dataTable.Columns.Add("FirstName", typeof(string));
@@ -63,6 +62,23 @@ namespace AddressBookLinq
                     contact.SetField("Zip", 23212);
                 }
                 Console.WriteLine("Contact is Changed Successfully");
+            }
+            else
+            {
+                Console.WriteLine("Contact Does not Found!");
+            }
+        }
+        public void RemoveContact()
+        {
+            var contact = dataTable.AsEnumerable().Where(x => x.Field<string>("FirstName") == "Aniket");
+            int count = contact.Count();
+            if (count > 0)
+            {
+                foreach (var row in contact.ToList())
+                {
+                    row.Delete();
+                    Console.WriteLine("Contact Is Deleted Successfully");
+                }
             }
             else
             {
