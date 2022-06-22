@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace AddressBookLinq
 {
-    
+
     public class AddressBook
     {
 
@@ -103,9 +103,17 @@ namespace AddressBookLinq
                     Console.WriteLine("PhoneNumber:-" + contact.Field<long>("PhoneNumber"));
                     Console.WriteLine("Email:-" + contact.Field<string>("Email"));
                     Console.WriteLine();
-
                 }
             }
+            else
+            {
+                Console.WriteLine("Contact Does not Found!");
+            }
+        }
+        public void CountContactByUsingCity()
+        {
+            var contacts = dataTable.Rows.Cast<DataRow>().GroupBy(x => x["City"].Equals("pune")).Count();
+            Console.WriteLine("Size : {0} ", contacts);
         }
     }
 }
