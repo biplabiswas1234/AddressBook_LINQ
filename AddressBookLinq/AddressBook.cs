@@ -10,7 +10,9 @@ namespace AddressBookLinq
     
     public class AddressBook
     {
+        
         DataTable dataTable = new DataTable();
+
         public AddressBook()
         {
             dataTable.Columns.Add("FirstName", typeof(string));
@@ -24,26 +26,47 @@ namespace AddressBookLinq
         }
         public void AddContact()
         {
-            dataTable.Rows.Add("Jaden", "Smith", "Street77", "New York", "America", 254632, 8563214598, "jadensmith@gmail.com");
-            dataTable.Rows.Add("Jack", "Kales", "Ohio", "Florida", "America", 789652, 8745214569, "ohiojack@gmail.com");
-            dataTable.Rows.Add("Pablo", "Escobar", "Philadelphia", "Texas", "America", 123652, 8563269547, "pablotexas@gmail.com");
-            dataTable.Rows.Add("ElChapo", "Gusman", "Hublo", "Miami", "America", 145236, 7854125632, "miamigusman@gmail.com");
-            dataTable.Rows.Add("Brandon", "Tan", "Rebublic", "Washington", "America", 145298, 7452145639, "tanbrandon@gmail.com");
-            Console.WriteLine("Contact is Added");
+            dataTable.Rows.Add("Yogesh", "Burkul", "Asola", "Buldana", "Gujrat", 38117, 9017658987, "yogesh@gmail.com");
+            dataTable.Rows.Add("Atish", "Patil", "Akola", "Nagpur", "Maharshtra", 84113, 8015870002, "atish123@gmail.com");
+            dataTable.Rows.Add("Nikita", "Pawar", "Jalna", "Beed", "Telangana", 88352, 2699626511, "nikitapawar@gmail.com");
+            dataTable.Rows.Add("Ganesh", "Shelke", "Chikhali", "Pune", "Maharshtra", 49546, 6165758233, "ganesh987@gmail.com");
+            dataTable.Rows.Add("Aniket", "Mante", "Javli", "Mumbai", "Maharshtra", 46214, 3174103617, "aniket678@gmail.com");
+            Console.WriteLine("Contact is Added in Address Book ");
+
         }
         public void DisplayContacts()
         {
             foreach (var contact in dataTable.AsEnumerable())
             {
-                Console.WriteLine("FirstName:" + contact.Field<string>("FirstName"));
-                Console.WriteLine("LastName:" + contact.Field<string>("LastName"));
-                Console.WriteLine("Address:" + contact.Field<string>("Address"));
-                Console.WriteLine("City:" + contact.Field<string>("City"));
-                Console.WriteLine("State:" + contact.Field<string>("State"));
-                Console.WriteLine("ZipCode:" + contact.Field<int>("Zip"));
-                Console.WriteLine("PhoneNumber:" + contact.Field<long>("PhoneNumber"));
-                Console.WriteLine("Email:" + contact.Field<string>("Email"));
+                Console.WriteLine("First Name:" + contact.Field<string>("FirstName"));
+                Console.WriteLine("LastName:-" + contact.Field<string>("LastName"));
+                Console.WriteLine("Address:-" + contact.Field<string>("Address"));
+                Console.WriteLine("City:-" + contact.Field<string>("City"));
+                Console.WriteLine("State:-" + contact.Field<string>("State"));
+                Console.WriteLine("ZipCode:-" + contact.Field<int>("Zip"));
+                Console.WriteLine("PhoneNumber:-" + contact.Field<long>("PhoneNumber"));
+                Console.WriteLine("Email:-" + contact.Field<string>("Email"));
                 Console.WriteLine();
+            }
+        }
+        public void EditContact()
+        {
+            var contacts = dataTable.AsEnumerable().Where(x => x.Field<string>("FirstName") == "Aniket");
+            int count = contacts.Count();
+            if (count > 0)
+            {
+                foreach (var contact in contacts)
+                {
+                    contact.SetField("LastName", "Surushe");
+                    contact.SetField("City", "Surat");
+                    contact.SetField("State", "Gujrat");
+                    contact.SetField("Zip", 23212);
+                }
+                Console.WriteLine("Contact is Changed Successfully");
+            }
+            else
+            {
+                Console.WriteLine("Contact Does not Found!");
             }
         }
     }
